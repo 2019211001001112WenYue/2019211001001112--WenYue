@@ -6,10 +6,6 @@
 
     <!--tell to tomcat about HelloWorldServlet-->
     <servlet>
-                <servlet-name>anyName</servlet-name>
-                <servlet-class>com.wenyue.week2.demo.HelloWorldServlet</servlet-class><!--add package name-->
-    </servlet>
-     <servlet>
         <servlet-name>LifeCycleServlet</servlet-name>
         <servlet-class>com.wenyue.week3.demo.LifeCycleServlet</servlet-class>
     </servlet>
@@ -17,17 +13,61 @@
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>com.wenyue.week3.demo.RegisterServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>JDBCServlet</servlet-name>
+        <servlet-class>com.wenyue.week4.demo.JDBCDemoServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>ConfigDemoServlet</servlet-name>
+        <servlet-class>com.wenyue.week4.demo.ConfigDemoServlet</servlet-class>
+        <init-param>
+            <param-name>name</param-name>
+            <param-value>wenyue</param-value>
+        </init-param>
+        <init-param>
+            <param-name>studentId</param-name>
+            <param-value>2019211001001112</param-value>
+        </init-param>
+    </servlet>
+    <context-param>
+        <param-name>driver</param-name>
+        <param-value>com.microsoft.sqlserver.jdbc.SQLServerDriver</param-value>
+    </context-param>
+    <context-param>
+        <param-name>url</param-name>
+        <param-value>jdbc:sqlserver://localhost:3306;DatabaseName=userdb</param-value>
+    </context-param>
+    <context-param>
+        <param-name>Username</param-name>
+        <param-value>sa</param-value>
+    </context-param>
+    <context-param>
+        <param-name>Password</param-name>
+        <param-value>123456789</param-value>
+    </context-param>
+
     <servlet-mapping>
-        <servlet-name>anyName</servlet-name>
-        <url-pattern>/hello</url-pattern><!--url always start with-->
+        <servlet-name>LifeCycleServlet</servlet-name>
+        <url-pattern>/Life</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>JDBCServlet</servlet-name>
+        <url-pattern>/JDBC</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConfigDemoServlet</servlet-name>
+        <url-pattern>/config</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>LifeCycleServlet</servlet-name>
         <url-pattern>/life</url-pattern>
         <!--/life == LifeCycleServlet== com.wenyue.week3.demo.LifeCycleServlet-->
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>RegisterServlet</servlet-name>
-        <url-pattern>/register</url-pattern><!--write this url in action-->
     </servlet-mapping>
 </web-app>
