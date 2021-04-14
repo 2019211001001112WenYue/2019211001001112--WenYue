@@ -1,7 +1,6 @@
 package com.wenyue.week3.demo;
 
 import com.wenyue.week4.demo.User;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -12,29 +11,33 @@ import java.util.ArrayList;
 import java.util.List;
 @WebServlet(name="RegisterServlet", value="/register")
 public class RegisterServlet extends HttpServlet {
-    Connection con;
+    Connection con = null;
     @Override
-    public void init(){
-        String driver = getServletConfig().getServletContext().getInitParameter("driver");
+    public void init() throws ServletException {//link sqlserver
+        super.init();
+/*        String driver = getServletConfig().getServletContext().getInitParameter("driver");
         String url = getServletConfig().getServletContext().getInitParameter("url");
         String username = getServletConfig().getServletContext().getInitParameter("Username");
         String password = getServletConfig().getServletContext().getInitParameter("Password");
         try {
             Class.forName(driver);
             con = DriverManager.getConnection(url,username,password);
-            System.out.println("hell0");
+            System.out.println("hello");
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("error");
             e.printStackTrace();
-        }
+        }*/
+
+        //week6
+        con = (Connection) getServletContext().getAttribute("con");
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PrintWriter writer = response.getWriter();
-        writer.println("doGet()...");
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //get  user info
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
@@ -48,6 +51,7 @@ public class RegisterServlet extends HttpServlet {
         writer.println("<br>gender: " + gender);
         writer.println("<br>birthDate: " + birthDate);
         writer.close();*/
+        //insert userTable
         String sql = "insert into Usertable values(?,?,?,?,?)";
         try {
             //insert sqlserver；
@@ -64,38 +68,9 @@ public class RegisterServlet extends HttpServlet {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        //send to login.jsp
+        response.sendRedirect("login.jsp");
 
-        List<User> retList = new ArrayList<User>();
-        String sqlSearch = "select * from Usertable";
-        try {
-            PreparedStatement stml = con.prepareStatement(sqlSearch);
-            ResultSet sea = stml.executeQuery();
-            while(sea.next()){
-                User s = new User();
-                s.setUsername(sea.getString("username"));
-                s.setPassword(sea.getString("password"));
-                s.setEmail(sea.getString("email"));
-                s.setGender(sea.getString("gender"));
-                s.setBirthDate(sea.getString("birthdate"));
-
-                retList.add(s);
-            }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        PrintWriter writer = response.getWriter();
-        writer.println("<table border = \"1\"> <tr> <td>username</td> <td>password</td> <td>email</td>  " +
-                "<td>gender</td> <td>birthDate</td> </tr>");
-        for(User s: retList){
-            writer.println("<tr>" + "<td>" + s.getUsername() + "</td> ");
-            writer.println("<td>" + s.getPassword() + "</td> ");
-            writer.println("<td>" + s.getEmail() + "</td> ");
-            writer.println("<td>" + s.getGender() + "</td> ");
-            writer.println("<td>" + s.getBirthDate() + "</td> </tr> ");
-        }
-        writer.println("</table> ");
-        writer.close();
     }
     public void destroy(){
         super.destroy();
