@@ -20,23 +20,10 @@ public class LoginServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {//link sqlserver
         super.init();
-//        String driver = getServletConfig().getServletContext().getInitParameter("driver");
-//        String url = getServletConfig().getServletContext().getInitParameter("url");
-//        String username = getServletConfig().getServletContext().getInitParameter("Username");
-//        String password = getServletConfig().getServletContext().getInitParameter("Password");
-//        try {
-//            Class.forName(driver);
-//            con = DriverManager.getConnection(url,username,password);
-//            System.out.println("hell0");
-//        } catch (ClassNotFoundException | SQLException e) {
-//            System.out.println("error");
-//            e.printStackTrace();
-//        }
         con = (Connection) getServletContext().getAttribute("con");
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("WEB-INF/views/login.jsp").forward(request,response);
-
 
     }
 
@@ -48,7 +35,23 @@ public class LoginServlet extends HttpServlet {
         try {
             User u = userDao.findByUsernamePassword(con,username,password);
             if(u !=null){
-                request.setAttribute("user",u);
+                String remember = request.getParameter("RememberMe");
+                if(remember != null && remember.equals("1")){
+                    Cookie usernameCookie = new Cookie("cusername",u.getUsername());
+                    Cookie passwordCookie = new Cookie("cpassword",u.getPassword());
+                    Cookie rememberMeCookie = new Cookie("crememberMe",request.getParameter("RememberMe"));
+                    usernameCookie.setMaxAge(10);
+                    passwordCookie.setMaxAge(10);
+                    rememberMeCookie.setMaxAge(10);
+                    response.addCookie(usernameCookie);
+                    response.addCookie(passwordCookie);
+                    response.addCookie(rememberMeCookie);
+                };
+
+                HttpSession session = request.getSession();
+                session.setMaxInactiveInterval(60*60*24);
+                session.setAttribute("user",u);
+                //request.setAttribute("user",u);
                 request.getRequestDispatcher("WEB-INF/views/userInfo.jsp").forward(request,response);
             }else{
                 request.setAttribute("message", "Username or Password Error!");
@@ -57,7 +60,6 @@ public class LoginServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
 
     }
 }

@@ -8,6 +8,7 @@
         <servlet-class>com.wenyue.week2.demo.HelloWorldServlet</servlet-class>
     </servlet>
 
+
     <servlet-mapping>
         <servlet-name>myname</servlet-name>
         <url-pattern>/hello</url-pattern>
@@ -30,4 +31,8 @@
         <param-name>Password</param-name>
         <param-value>123456789</param-value>
     </context-param>
+    <welcome-file-list>
+        <welcome-file>home</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>

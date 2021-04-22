@@ -7,28 +7,27 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="header.jsp"%>
-<% User user = (User)request.getAttribute("user");%>
 <h1>User Info</h1>
 <table border="1px" cellspacing="0" >
     <tr >
         <td>Username: </td>
-        <td><%=user.getUsername()%></td>
+        <td><%=request.getAttribute("username")%></td>
     </tr>
     <tr>
         <td>Password: </td>
-        <td><%=user.getPassword()%></td>
+        <td><%=request.getAttribute("password")%></td>
     </tr>
     <tr>
         <td>Email: </td>
-        <td><%=user.getEmail()%></td>
+        <td><%=request.getAttribute("email")%></td>
     </tr>
     <tr>
         <td>Gender: </td>
-        <td><%=user.getGender()%></td>
+        <td><%=request.getAttribute("gender")%></td>
     </tr>
     <tr>
         <td>BirthDate: </td>
-        <td><%=user.getBirthDate()%></td>
+        <td><%=request.getAttribute("birthdate")%></td>
     </tr>
 </table>
 <%@include file="footer.jsp"%>
