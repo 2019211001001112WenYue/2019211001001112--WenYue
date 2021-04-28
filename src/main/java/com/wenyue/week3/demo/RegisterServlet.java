@@ -1,6 +1,7 @@
 package com.wenyue.week3.demo;
 
 import com.wenyue.week4.demo.User;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -15,24 +16,10 @@ public class RegisterServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {//link sqlserver
         super.init();
-/*        String driver = getServletConfig().getServletContext().getInitParameter("driver");
-        String url = getServletConfig().getServletContext().getInitParameter("url");
-        String username = getServletConfig().getServletContext().getInitParameter("Username");
-        String password = getServletConfig().getServletContext().getInitParameter("Password");
-        try {
-            Class.forName(driver);
-            con = DriverManager.getConnection(url,username,password);
-            System.out.println("hello");
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("error");
-            e.printStackTrace();
-        }*/
-
-        //week6
         con = (Connection) getServletContext().getAttribute("con");
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        request.getRequestDispatcher("WEB-INF/views/register.jsp").forward(request,response);
     }
 
     @Override
@@ -43,14 +30,7 @@ public class RegisterServlet extends HttpServlet {
         String email = request.getParameter("email");
         String gender = request.getParameter("gender");
         String birthDate = request.getParameter("birthdate");
-        /*HW-week3
-        PrintWriter writer = response.getWriter();
-        writer.println("<br>username: " + username);
-        writer.println("<br>password: " + password);
-        writer.println("<br>email: " + email);
-        writer.println("<br>gender: " + gender);
-        writer.println("<br>birthDate: " + birthDate);
-        writer.close();*/
+
         //insert userTable
         String sql = "insert into Usertable values(?,?,?,?,?)";
         try {
@@ -69,7 +49,8 @@ public class RegisterServlet extends HttpServlet {
             e.printStackTrace();
         }
         //send to login.jsp
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("login");
+//            // TODO Auto-generated catch block
 
     }
     public void destroy(){
