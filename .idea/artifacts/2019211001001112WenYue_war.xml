@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="WenYue2019211001001112-1.0-SNAPSHOT.war">
+    <root id="archive" name="wenyue2019211001001112-1.0-SNAPSHOT.war">
       <element id="artifact" artifact-name="2019211001001112WenYue:war exploded" />
     </root>
   </artifact>
