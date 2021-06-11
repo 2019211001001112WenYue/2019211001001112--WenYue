@@ -12,6 +12,7 @@ public class wenyueFilter implements Filter {
     public void destroy() {
     }
 
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         System.out.println("wenyueFilter-->before chain");

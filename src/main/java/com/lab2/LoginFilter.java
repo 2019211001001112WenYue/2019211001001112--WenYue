@@ -14,6 +14,7 @@ public class LoginFilter implements Filter {
         System.out.println("i am in LoginFilter--init()");
     }
 
+
     public void destroy() {
         /* todo 3:System out print i am in LoginFilter--destroy() */
         System.out.println("i am in LoginFilter--destroy()");
