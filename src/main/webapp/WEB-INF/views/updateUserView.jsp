@@ -9,10 +9,11 @@
             <div class="col-sm-4 col-sm-offset-1">
                 <div class="login-form"><!--login form-->
                     <h2>Update User Info</h2>
-                    <% if(!(request.getAttribute("user")==null)){
-                        com.wenyue.model.User u = (com.wenyue.model.User)request.getAttribute("user");
+                    <% if(!(session.getAttribute("user")==null)){
+
+                        com.wenyue.model.User u = (com.wenyue.model.User)session.getAttribute("user");
                     %>
-                    <%if(!(request.getAttribute("message")==null)){
+                    <%if(!(session.getAttribute("message")==null)){
                         out.println("<h3>"+request.getAttribute("message")+"</h3>");
                     }%>
                     <form method="post" action="updateUser">
