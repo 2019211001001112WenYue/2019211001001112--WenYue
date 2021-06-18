@@ -14,10 +14,10 @@
 <body>
 <h2>Welcome,
     <%--todo 9 : use jsp:useBean to access the same instance of login bean from request scope--%>
-    <jsp:useBean id="login" scope="request" class="com.lab2.Login"/>
+    <jsp:useBean id="login" class="com.lab2.Login" scope="request"/>
     <%--todo 10 : use jsp:getProperty to display username --%>
     <jsp:getProperty name="login" property="username"/>
-
 </h2>
 </body>
 </html>
+
